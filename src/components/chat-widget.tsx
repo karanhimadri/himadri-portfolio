@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useRef as useMutableRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, Sparkles, Send, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -206,11 +207,14 @@ function ShakingBot() {
   // Total cycle = duration + repeatDelay = 1.0 + 2.0 = 3s
   transition={reduceMotion ? undefined : { duration: 1.0, repeat: Infinity, repeatDelay: 2.0, ease: 'easeInOut' }}
     >
-      <img
+      <Image
         src="/bot.png"
         alt="Chat bot"
+        width={32}
+        height={32}
         className="pointer-events-none h-8 w-8 object-contain select-none"
         draggable={false}
+        priority={false}
       />
     </motion.div>
   );

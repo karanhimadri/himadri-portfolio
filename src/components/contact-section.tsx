@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -102,10 +102,7 @@ export function ContactSection() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
-  const [mounted, setMounted] = useState(false)
   const disabled = formState === "sending"
-
-  useEffect(() => setMounted(true), [])
 
   function copy(value: string) {
     navigator?.clipboard?.writeText(value).then(() => {
@@ -157,7 +154,7 @@ export function ContactSection() {
             <Send className="h-3.5 w-3.5 text-primary" />
           </div>
           <h2 className="bg-gradient-to-b from-foreground to-foreground/60 bg-clip-text text-4xl font-bold tracking-tight text-transparent sm:text-5xl">
-            Let's build something meaningful
+            Let&apos;s build something meaningful
           </h2>
           <p className="mt-6 max-w-xl text-balance text-sm leading-relaxed text-muted-foreground sm:text-base">
             Open to impactful product engineering, AI integration, platform acceleration and high‑leverage collaboration. Fast, thoughtful responses.
@@ -230,7 +227,7 @@ export function ContactSection() {
                   <Textarea
                     id="message"
                     rows={6}
-                    placeholder="Briefly describe what you'd like to build or discuss..."
+                    placeholder="Briefly describe what you&apos;d like to build or discuss..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     className="rounded-lg border-border/60 bg-background/70 backdrop-blur"
