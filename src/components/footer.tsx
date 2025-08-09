@@ -91,8 +91,8 @@ export function Footer() {
               ))}
             </div>
           </div>
-          {/* Navigation columns */}
-          <div className="md:col-span-3 grid gap-10 sm:grid-cols-3">
+          {/* Navigation columns: force 3 columns even on small screens if space allows */}
+          <div className="md:col-span-3 grid grid-cols-3 pl-7 gap-6 md:gap-10">
             {NAV.map((col) => (
               <div key={col.heading} className="flex flex-col gap-4">
                 <h4 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground/70">
