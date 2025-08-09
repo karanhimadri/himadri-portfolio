@@ -152,7 +152,7 @@ export function HeroSection() {
             animate={mounted ? { opacity: 1, y: 0 } : undefined}
             transition={mounted ? { duration: 0.8, delay: 0.1 } : undefined}
           >
-            Hi, I'm{" "}
+            Hi, I&apos;m{" "}
             <span className="bg-gradient-to-r from-primary to-cyan-400 bg-clip-text text-transparent">
               Himadri
             </span>

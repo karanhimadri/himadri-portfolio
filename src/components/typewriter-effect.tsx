@@ -23,10 +23,10 @@ export const TypewriterEffect = ({
 
   useEffect(() => {
     if (!mounted) return;
-    
+
     const type = () => {
       const currentWord = words[wordIndex].text;
-      
+
       if (isDeleting) {
         setDisplayText(currentWord.substring(0, charIndex - 1));
         setCharIndex(charIndex - 1);

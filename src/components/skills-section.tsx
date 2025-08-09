@@ -11,8 +11,6 @@ import {
   LayoutTemplate,
   Cpu,
   Gauge,
-  Layers,
-  Workflow,
   Rocket
 } from "lucide-react"
 

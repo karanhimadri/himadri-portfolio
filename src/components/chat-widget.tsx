@@ -14,7 +14,7 @@ interface ChatMessage {
 
 // Static sample messages (no Date.now for SSR determinism)
 const sampleMessages: ChatMessage[] = [
-  { id: "1", role: "assistant", content: "Hi! I'm the embedded assistant. Ask me about this portfolio or technologies used.", ts: 0 },
+  { id: "1", role: "assistant", content: "Hi! I&apos;m the embedded assistant. Ask me about this portfolio or technologies used.", ts: 0 },
   { id: "2", role: "user", content: "What stack powers this site?", ts: 1 },
   { id: "3", role: "assistant", content: "Next.js App Router, TypeScript, Tailwind, shadcn/ui, Framer Motion & Lucide icons.", ts: 2 }
 ];

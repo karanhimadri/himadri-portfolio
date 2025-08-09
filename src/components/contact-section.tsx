@@ -5,20 +5,15 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import {
   Github,
   Linkedin,
   Mail,
   Send,
-  Download,
   Copy,
   Check,
-  Clock,
-  MapPin,
-  Calendar,
   ArrowUpRight,
-  FileText
 } from "lucide-react"
 
 type Channel = {
