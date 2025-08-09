@@ -4,7 +4,8 @@ import { useEffect, useState } from "react"
 import { Github, Linkedin, Mail, ArrowUpRight, Sparkles, Heart, Terminal } from "lucide-react"
 import { motion } from "framer-motion"
 
-const YEAR = new Date().getFullYear()
+// Capture year at build time for SSR; fine if stale until redeploy.
+const BUILD_YEAR = new Date().getFullYear()
 
 const SOCIAL = [
   { id: "github", label: "GitHub", href: "https://github.com/himadrikaran", icon: <Github className="h-4 w-4" /> },
@@ -126,7 +127,7 @@ export function Footer() {
             transition={{ duration: 0.5 }}
             className="text-center text-[11px] font-medium text-muted-foreground/70 md:text-left"
           >
-            © {YEAR} Himadri Karan. Crafted with <Heart className="inline h-3 w-3 text-primary" /> & purposeful iteration.
+            © {BUILD_YEAR} Himadri Karan. Crafted with <Heart className="inline h-3 w-3 text-primary" /> & purposeful iteration.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -139,7 +140,10 @@ export function Footer() {
               <Sparkles className="mr-1 inline h-3 w-3 text-primary" /> Next.js • TypeScript • Tailwind • Framer Motion
             </span>
             {mounted && (
-              <span className="rounded-full border border-border/60 bg-background/60 px-3 py-1 text-[10px] font-medium tracking-wide text-muted-foreground/70">
+              <span
+                className="rounded-full border border-border/60 bg-background/60 px-3 py-1 text-[10px] font-medium tracking-wide text-muted-foreground/70"
+                suppressHydrationWarning
+              >
                 Build {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(0, 7) || "local"}
               </span>
             )}

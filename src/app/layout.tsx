@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   description: "Full-Stack Developer specializing in LLM Chatbot Development, TypeScript, and Spring Boot. Building innovative AI-powered solutions.",
   keywords: ["Full Stack Developer", "LLM", "Chatbot", "TypeScript", "Spring Boot", "React", "Next.js"],
   authors: [{ name: "Himadri Karan" }],
+  icons: {
+    icon: "/letter-h.png",
+    shortcut: "/letter-h.png",
+    apple: "/letter-h.png",
+  },
 };
 
 export const viewport = {
