@@ -44,26 +44,30 @@ export function ChatWidget() {
 
   const sendMessage = async () => {
     if (!input.trim() || sending) return;
-    const userMsg: ChatMessage = {
-      id: nextId(),
-      role: "user",
-      content: input.trim(),
-      ts: Date.now()
-    };
+    const text = input.trim();
+    const userMsg: ChatMessage = { id: nextId(), role: 'user', content: text, ts: Date.now() };
     setMessages(m => [...m, userMsg]);
-    setInput("");
+    setInput('');
     setSending(true);
-    // Simulated assistant response
-    setTimeout(() => {
-      const reply: ChatMessage = {
-        id: nextId(),
-        role: "assistant",
-        content: "(Demo) This is a static demo response. In production you'd call your API here.",
-        ts: Date.now()
-      };
-      setMessages(m => [...m, reply]);
+
+    // Placeholder assistant bubble while waiting
+    const tempId = nextId();
+    setMessages(m => [...m, { id: tempId, role: 'assistant', content: '…thinking', ts: Date.now() }]);
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+      if (!res.ok) throw new Error('Request failed');
+      const data = await res.json();
+      setMessages(m => m.map(msg => msg.id === tempId ? { ...msg, content: data.reply || '(empty response)' } : msg));
+    } catch (e: any) {
+      setMessages(m => m.map(msg => msg.id === tempId ? { ...msg, content: 'Error contacting AI service.' } : msg));
+    } finally {
       setSending(false);
-    }, 900);
+    }
   };
 
   const handleKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -93,8 +97,8 @@ export function ChatWidget() {
                 <Sparkles className="h-4 w-4 text-white" />
               </div>
               <div className="flex flex-col">
-                <p className="text-xs font-semibold tracking-wide text-neutral-200">Chat (Demo)</p>
-                <p className="text-[10px] text-neutral-400">Static prototype</p>
+                <p className="text-xs font-semibold tracking-wide text-neutral-200">Chat (AI)</p>
+                <p className="text-[10px] text-neutral-400">Gemini powered</p>
               </div>
               <button
                 onClick={() => setOpen(false)}
@@ -151,8 +155,8 @@ export function ChatWidget() {
                   {sending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Send className="h-3.5 w-3.5" />}
                 </button>
               </div>
-              <p className="mt-2 text-[9px] text-neutral-500">
-                Demo only – messages aren’t persisted.
+              <p className="mt-2 text-[9px] text-neutral-500 leading-snug">
+                Uses Google Gemini with a brief personal context about Himadri. Do not share secrets here.
               </p>
             </div>
           </motion.div>

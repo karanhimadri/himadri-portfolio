@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import emailjs from "@emailjs/browser"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -14,6 +15,7 @@ import {
   Copy,
   Check,
   ArrowUpRight,
+  ChevronDown,
 } from "lucide-react"
 
 type Channel = {
@@ -102,6 +104,8 @@ export function ContactSection() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
+  const [subject, setSubject] = useState("")
+  const [submitStatus, setSubmitStatus] = useState<{ status: "" | "success" | "error"; message: string }>({ status: "", message: "" })
   const disabled = formState === "sending"
 
   function copy(value: string) {
@@ -112,25 +116,62 @@ export function ContactSection() {
   }
 
   function validate(): boolean {
-    return name.trim().length >= 2 && /.+@.+\..+/.test(email) && message.trim().length > 10
+    return (
+      name.trim().length >= 2 &&
+      /.+@.+\..+/.test(email) &&
+      subject.trim().length > 0 &&
+      message.trim().length > 10
+    )
   }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) {
       setFormState("error")
-      setTimeout(() => setFormState("idle"), 2500)
+      setSubmitStatus({ status: "error", message: "Please fill in all required fields." })
+      setTimeout(() => {
+        setFormState("idle")
+        setSubmitStatus({ status: "", message: "" })
+      }, 3000)
       return
     }
+
     setFormState("sending")
-    await new Promise((r) => setTimeout(r, 1400))
-    setFormState("sent")
-    setTimeout(() => {
-      setFormState("idle")
+    const templateParams = {
+      user_name: name,
+      user_email: email,
+      subject: subject,
+      message: message,
+    }
+
+    try {
+      await emailjs.send(
+        "service_z5cvqp2",
+        "template_l844hfg",
+        templateParams,
+        {
+          publicKey: "R_HfTZcPVfKJL0nhW",
+        }
+      )
+      setFormState("sent")
+      setSubmitStatus({ status: "success", message: "Thanks! I'll get back to you soon." })
       setName("")
       setEmail("")
       setMessage("")
-    }, 3500)
+      setSubject("")
+      setTimeout(() => {
+        setFormState("idle")
+        setSubmitStatus({ status: "", message: "" })
+      }, 4000)
+    } catch (err) {
+      console.error("Email send failed", err)
+      setFormState("error")
+      setSubmitStatus({ status: "error", message: "Send failed. Please try again later." })
+      setTimeout(() => {
+        setFormState("idle")
+        setSubmitStatus({ status: "", message: "" })
+      }, 4500)
+    }
   }
 
   return (
@@ -233,9 +274,44 @@ export function ContactSection() {
                     className="rounded-lg border-border/60 bg-background/70 backdrop-blur"
                   />
                 </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="subject" className="text-xs font-medium uppercase tracking-wide text-muted-foreground/70">
+                    Subject
+                  </label>
+                  <div className="relative">
+                    <select
+                      id="subject"
+                      name="subject"
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                      required
+                      className="peer h-11 w-full appearance-none rounded-lg border border-border/60 bg-background/70 px-4 pr-10 text-sm text-foreground backdrop-blur transition placeholder:text-muted-foreground/50 focus-visible:border-primary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <option value="">Select a topic...</option>
+                      <option value="internship">Internship Opportunity</option>
+                      <option value="job">Job Opportunity</option>
+                      <option value="collaboration">Project Collaboration</option>
+                      <option value="mentorship">Mentorship</option>
+                      <option value="networking">Networking</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/60 transition peer-focus-visible:text-primary" />
+                  </div>
+                </div>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mt-12">
-                  <div className="text-[10px] text-muted-foreground/70">
-                    I will never share your information. Responses typically within 24h.
+                  <div className="text-[10px] text-muted-foreground/70 space-y-1">
+                    <div>I will never share your information. Responses typically within 24h.</div>
+                    {submitStatus.status && (
+                      <div
+                        className={
+                          submitStatus.status === "success"
+                            ? "text-emerald-500/80 font-medium"
+                            : "text-destructive/80 font-medium"
+                        }
+                      >
+                        {submitStatus.message}
+                      </div>
+                    )}
                   </div>
                   <motion.div whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
                     <Button
