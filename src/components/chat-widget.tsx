@@ -63,7 +63,8 @@ export function ChatWidget() {
       if (!res.ok) throw new Error('Request failed');
       const data = await res.json();
       setMessages(m => m.map(msg => msg.id === tempId ? { ...msg, content: data.reply || '(empty response)' } : msg));
-    } catch (e: any) {
+  } catch {
+      // We intentionally do not surface detailed error info to the user.
       setMessages(m => m.map(msg => msg.id === tempId ? { ...msg, content: 'Error contacting AI service.' } : msg));
     } finally {
       setSending(false);

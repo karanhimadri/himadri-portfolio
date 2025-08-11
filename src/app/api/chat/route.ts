@@ -127,15 +127,33 @@ export async function POST(req: NextRequest): Promise<Response> {
     }
 
     const ai = new GoogleGenAI({ apiKey });
-    const response: any = await ai.models.generateContent({
+    // Library typings for generateContent are loose; treat as unknown and
+    // extract only the fields we actually need to avoid using 'any'.
+    const rawResponse: unknown = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: buildPrompt(userText)
     });
 
-    const text: string =
-      typeof response.text === "function"
-        ? response.text()
-        : response.text || response.output_text || JSON.stringify(response);
+    const extractText = (resp: unknown): string => {
+      if (resp && typeof resp === "object") {
+        const r = resp as {
+          text?: string | (() => string);
+          output_text?: string;
+          [k: string]: unknown;
+        };
+        if (typeof r.text === "function") return r.text() || "";
+        if (typeof r.text === "string") return r.text;
+        if (typeof r.output_text === "string") return r.output_text;
+        try {
+          return JSON.stringify(r);
+        } catch {
+          return "(unserializable response)";
+        }
+      }
+      return typeof resp === "string" ? resp : String(resp);
+    };
+
+    const text: string = extractText(rawResponse).slice(0, 4000);
 
     return new Response(JSON.stringify({ reply: text }), { status: 200 });
   } catch (err: unknown) {
