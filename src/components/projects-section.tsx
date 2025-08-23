@@ -21,14 +21,14 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
-    title: "RAG Assistant – LLM Powered Chatbot",
-    description: "Production-grade RAG chatbot with Redis session credits, Gemini/Cohere APIs, adaptive context, semantic reranking, and 30% faster streaming responses.",
-    tech: ["React.js", "FastAPI", "Redis", "ChromaDB", "LangChain", "Gemini", "Pinacone"],
-    github: "https://github.com/himadrikaran/rag-chatbot",
+    title: "Full Stack RAG Assistant – LLM Powered Chatbot",
+    description: "Full-stack Retrieval-Augmented Generation chatbot featuring user credit tracking via Redis, domain-specific context retrieval, Cohere embeddings, and Gemini LLM responses. Optimized for faster semantic search and adaptive context handling.",
+    tech: ["Next.js", "FastAPI", "Redis", "Pinecone", "Cohere", "Google Gemini", "Supabase", "LangChain"],
+    github: "https://github.com/karanhimadri/RAG-Based-ChatBot.git",
     live: "https://rag-chatbot-demo.vercel.app",
     featured: true,
-    highlight: "12K+ docs indexed | <50ms vector latency",
-    media: "/rag-preview.png"
+    highlight: "12K+ docs indexed • ~6s avg response • <50ms vector lookup",
+    media: "/images/chat_inerfacd.png"
   },
   {
     id: 2,
@@ -150,7 +150,12 @@ const FeaturedCard = ({ project }: { project: Project }) => {
             </div>
           </div>
           <div className="relative aspect-video rounded-xl border bg-gradient-to-br from-primary/10 via-transparent to-primary/5 flex items-center justify-center overflow-hidden">
-            {/* Media placeholder */}
+            {/* Media placeholder replaced with image */}
+            <img
+              src={project.media}
+              alt="Portfolio Preview"
+              className="absolute inset-0 h-full w-full object-contain bg-black" // bg-black optional for empty space
+            />
             <div className="absolute inset-0 bg-[linear-gradient(120deg,hsl(var(--primary)/0.15),transparent_40%,hsl(var(--primary)/0.15))] opacity-40 animate-pulse" />
             <span className="relative z-10 text-[10px] uppercase tracking-widest text-muted-foreground">Preview</span>
           </div>

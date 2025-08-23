@@ -63,7 +63,7 @@ export function ChatWidget() {
       if (!res.ok) throw new Error('Request failed');
       const data = await res.json();
       setMessages(m => m.map(msg => msg.id === tempId ? { ...msg, content: data.reply || '(empty response)' } : msg));
-  } catch {
+    } catch {
       // We intentionally do not surface detailed error info to the user.
       setMessages(m => m.map(msg => msg.id === tempId ? { ...msg, content: 'Error contacting AI service.' } : msg));
     } finally {
@@ -98,8 +98,8 @@ export function ChatWidget() {
                 <Sparkles className="h-4 w-4 text-white" />
               </div>
               <div className="flex flex-col">
-                <p className="text-xs font-semibold tracking-wide text-neutral-200">Chat (AI)</p>
-                <p className="text-[10px] text-neutral-400">Gemini powered</p>
+                <p className="text-xs font-semibold tracking-wide text-neutral-200">Karnex</p>
+                <p className="text-[10px] text-neutral-400">AI-crafted by Himadri Karan</p>
               </div>
               <button
                 onClick={() => setOpen(false)}
@@ -206,11 +206,11 @@ function ShakingBot() {
     <motion.div
       className="flex items-center justify-center h-full w-full"
       animate={reduceMotion ? undefined : {
-        rotate: [0,0,3,-3,3,-3,1,-1,0,0],
-        y: [0,0,-1,1,-1,1,0,0,0,0]
+        rotate: [0, 0, 3, -3, 3, -3, 1, -1, 0, 0],
+        y: [0, 0, -1, 1, -1, 1, 0, 0, 0, 0]
       }}
-  // Total cycle = duration + repeatDelay = 1.0 + 2.0 = 3s
-  transition={reduceMotion ? undefined : { duration: 1.0, repeat: Infinity, repeatDelay: 2.0, ease: 'easeInOut' }}
+      // Total cycle = duration + repeatDelay = 1.0 + 2.0 = 3s
+      transition={reduceMotion ? undefined : { duration: 1.0, repeat: Infinity, repeatDelay: 2.0, ease: 'easeInOut' }}
     >
       <Image
         src="/bot.png"

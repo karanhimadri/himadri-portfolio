@@ -27,22 +27,22 @@ const PILLARS: Pillar[] = [
   {
     icon: <Brain className="h-5 w-5 text-primary" />,
     title: "Systems Thinking",
-    body: "I zoom out to model flows, constraints & feedback loops before writing code. Architecture serves outcomes, not the other way around."
+    body: "I analyze flows, dependencies, and constraints before writing code. I design architectures that serve outcomes and users, not just technical implementation."
   },
   {
     icon: <Layers className="h-5 w-5 text-primary" />,
     title: "Composable Design",
-    body: "Build primitives → compose capabilities. Clean boundaries let teams iterate fast without entropy."
+    body: "I build modular components and reusable primitives, allowing teams to iterate quickly while keeping code maintainable and scalable."
   },
   {
     icon: <Shield className="h-5 w-5 text-primary" />,
     title: "Reliability & Trust",
-    body: "Secure by default, observable by design. Instrument everything & surface the signals that matter."
+    body: "Security, observability, and error handling are first-class priorities. I monitor systems and ensure critical signals are visible for confident operations."
   },
   {
     icon: <Sparkles className="h-5 w-5 text-primary" />,
     title: "Human‑Centered UX",
-    body: "Delight emerges from micro‑interactions + performance + clarity. Motion & AI responsibly amplifying user intent."
+    body: "I focus on clarity, responsiveness, and micro-interactions. AI and automation are applied responsibly to help users achieve their goals efficiently."
   }
 ]
 
@@ -57,41 +57,43 @@ const TIMELINE: TimelineItem[] = [
   {
     year: "2021",
     heading: "Foundational Engineering",
-    detail: "Deepened core in TypeScript + backend fundamentals; shipped internal tooling that reduced build times ~30%.",
+    detail: "Gained strong backend fundamentals in Java, Spring Boot, and Node.js. Built internal tooling that reduced development friction and improved productivity.",
     icon: <Code className="h-4 w-4" />
   },
   {
     year: "2022",
-    heading: "Full‑Stack Product Impact",
-    detail: "Led end‑to‑end feature verticals (design → prod) with resilient API design & edge delivery.",
+    heading: "Full‑Stack Product Delivery",
+    detail: "Led end-to-end features including API design, frontend integration, and deployment. Ensured reliability, performance, and maintainability across projects.",
     icon: <Workflow className="h-4 w-4" />
   },
   {
     year: "2023",
-    heading: "AI Enablement",
-    detail: "Built RAG & LLM augmentation pipelines; production vector indexing & evaluation loops.",
+    heading: "AI-Enhanced Applications",
+    detail: "Developed RAG pipelines and LLM-powered chatbots using FastAPI, Google Gemini, Cohere embeddings, and Pinecone. Optimized retrieval and response generation for context-aware answers.",
     icon: <Brain className="h-4 w-4" />
   },
   {
     year: "2024",
     heading: "Platform & Scale",
-    detail: "Architected modular services, improved latency & resilience; codified DX automation scripts.",
+    detail: "Architected modular services, improved latency and resilience, and implemented DX automation. Focused on cloud-native deployments using Docker, Render, and Railway.",
     icon: <Rocket className="h-4 w-4" />
   },
   {
     year: "2025",
     heading: "Global Reach & AI UX",
-    detail: "Optimizing real‑time AI assisted flows + multilingual experiences with edge inference orchestration.",
+    detail: "Enhancing real-time AI-assisted workflows and multilingual user experiences. Orchestrating edge inference and performance tuning for seamless AI interactions.",
     icon: <Globe2 className="h-4 w-4" />
   }
 ]
 
+
 const metrics = [
-  { label: "Prod Features", value: 120, suffix: "+" },
-  { label: "LLM Pipelines", value: 15, suffix: "+" },
-  { label: "Perf Gains", value: 40, suffix: "%" },
-  { label: "Teams Enabled", value: 6, suffix: "+" }
+  { label: "Projects Made", value: 20, suffix: "+" }, // Full-stack + AI projects
+  { label: "RAG/AI Pipelines", value: 5, suffix: "+" }, // Your LLM + RAG implementations
+  { label: "Perf Improvements", value: 40, suffix: "%" }, // E.g., retrieval & latency optimization
+  { label: "Teams Impacted", value: 4, suffix: "+" } // Projects that improved workflows or demos
 ]
+
 
 function MetricCard({ value, label, suffix }: { value: number; label: string; suffix?: string }) {
   return (

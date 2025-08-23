@@ -42,8 +42,8 @@ const CATEGORIES: SkillCategory[] = [
       { name: "React", level: 92, experience: "5y", highlight: true, description: "Hooks, Suspense, concurrent patterns, RSC" },
       { name: "Next.js", level: 90, experience: "4y", highlight: true, description: "App Router, Edge, ISR, Route Handlers" },
       { name: "TypeScript", level: 93, experience: "5y", highlight: true, description: "Type ergonomics, API modeling" },
-      { name: "Tailwind", level: 88, experience: "4y" },
-      { name: "Framer Motion", level: 86, experience: "3y" },
+      { name: "Tailwind CSS", level: 88, experience: "4y" },
+      { name: "HTML, CSS, JS", level: 86, experience: "3y" },
       { name: "Web Performance", level: 82, experience: "Core Web Vitals" }
     ]
   },
@@ -55,11 +55,11 @@ const CATEGORIES: SkillCategory[] = [
     blurb: "Robust API surfaces, modular service design, secure & observable.",
     skills: [
       { name: "Node.js", level: 90, experience: "6y", highlight: true },
-      { name: "NestJS", level: 84, experience: "3y" },
+      { name: "Nestjs", level: 84, experience: "3y" },
       { name: "FastAPI", level: 80, experience: "3y" },
-      { name: "Go", level: 70, experience: "2y" },
-      { name: "GraphQL", level: 78, experience: "2y" },
-      { name: "Auth & Security", level: 82, experience: "OWASP" }
+      { name: "Spring Boot", level: 70, experience: "2y" },
+      { name: "Spring Security", level: 78, experience: "2y" },
+      { name: "JWT & OAuth", level: 82, experience: "OWASP" }
     ]
   },
   {
@@ -69,11 +69,11 @@ const CATEGORIES: SkillCategory[] = [
     domain: "data",
     blurb: "Optimized data flows, indexing strategies & caching layers.",
     skills: [
-      { name: "PostgreSQL", level: 88, experience: "5y", highlight: true },
+      { name: "MySQL", level: 88, experience: "5y", highlight: true },
       { name: "MongoDB", level: 82, experience: "4y" },
       { name: "Redis", level: 80, experience: "4y" },
       { name: "Vector DB (Pinecone / Chroma)", level: 76, experience: "2y" },
-      { name: "Prisma / ORM", level: 84, experience: "4y" }
+      { name: "Mongoose", level: 84, experience: "4y" }
     ]
   },
   {
@@ -87,8 +87,8 @@ const CATEGORIES: SkillCategory[] = [
       { name: "RAG Architecture", level: 82, experience: "Prod" },
       { name: "Prompt Engineering", level: 78 },
       { name: "Embedding Strategies", level: 74 },
-      { name: "TensorFlow", level: 65 },
-      { name: "Evaluation / Metrics", level: 70 }
+      { name: "LLMs", level: 65 },
+      { name: "Scikit-learn", level: 70 }
     ]
   },
   {
@@ -103,7 +103,8 @@ const CATEGORIES: SkillCategory[] = [
       { name: "AWS / GCP", level: 80, experience: "Multi-cloud" },
       { name: "CI/CD", level: 85, experience: "GitHub Actions" },
       { name: "Infra as Code", level: 70, experience: "Terraform" },
-      { name: "Observability", level: 74, experience: "Logs / Traces" }
+      { name: "Observability", level: 74, experience: "Logs / Traces" },
+      { name: "Render / Vercel Deploy", level: 74, experience: "Logs / Traces" },
     ]
   },
   {
@@ -114,11 +115,10 @@ const CATEGORIES: SkillCategory[] = [
     blurb: "Engineering excellence & velocity multipliers.",
     skills: [
       { name: "Git / GitHub", level: 92, experience: "Flow / trunk" },
-      { name: "Testing (Jest / Vitest)", level: 82 },
-      { name: "Design Systems", level: 80 },
-      { name: "Agile Delivery", level: 78 },
+      { name: "Testing (JUnit & Mockito / Playwright)", level: 82 },
+      { name: "System Design", level: 80 },
+      { name: "Agile Development", level: 78 },
       { name: "Architecture", level: 85 },
-      { name: "DX Automation", level: 76 }
     ]
   }
 ]
@@ -152,14 +152,14 @@ function SkillBadge({ skill }: { skill: Skill }) {
       transition={{ duration: 0.35 }}
       className="group relative flex items-center gap-3 rounded-full border border-border/60 bg-card/60 px-3 py-1.5 backdrop-blur supports-[backdrop-filter]:bg-card/40 hover:border-primary/60 hover:bg-card/80"
     >
-      <GaugePill level={skill.level} />
+      {/* <GaugePill level={skill.level} /> */}
       <div className="flex flex-col leading-tight">
         <span className={`text-xs font-medium tracking-tight ${skill.highlight ? "text-primary" : "text-foreground"}`}>
           {skill.name}
         </span>
-        {skill.experience && (
+        {/* {skill.experience && (
           <span className="text-[10px] text-muted-foreground/70">{skill.experience}</span>
-        )}
+        )} */}
       </div>
       {skill.description && (
         <div className="pointer-events-none absolute -left-1/2 top-full z-10 mt-2 w-56 origin-top scale-90 opacity-0 transition-all group-hover:scale-100 group-hover:opacity-100">
@@ -228,7 +228,7 @@ function MatrixView() {
             <span className="text-xs font-medium tracking-tight text-foreground/90">
               {s.name}
             </span>
-            <span className="text-[10px] text-muted-foreground/60">{s.level}%</span>
+            
           </div>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-muted/40">
             <motion.div
@@ -239,11 +239,6 @@ function MatrixView() {
               className="h-full rounded-full bg-gradient-to-r from-primary via-primary/80 to-primary/50"
             />
           </div>
-          {s.experience && (
-            <div className="mt-2 text-[10px] font-medium text-muted-foreground/60">
-              {s.experience}
-            </div>
-          )}
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,transparent,transparent,rgba(255,255,255,0.04))] opacity-0 transition-opacity group-hover:opacity-100" />
         </motion.div>
       ))}
